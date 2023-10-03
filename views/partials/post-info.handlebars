@@ -1,8 +1,9 @@
-<div class="card mt-3 mx-3">
-    {{#if allow_edit}}
-    {{> post-line1 bgcolor="bg-secondary" textcolor="text-white"}}
-    {{else}}
-    {{> post-line1 bgcolor="bg-info" textcolor=""}}
-    {{/if}}
-    <p class="card-text px-5 py-1">{{post_text}}</p>
-</div>
+    <article class="post">
+      <div class="title">
+        <span><a href="/post/{{id}}">{{title}}</a></span><span style="float:right">Posted by {{user.username}} on {{format_date created_at}}</span><br>
+        <span style="float:right">{{comments.length}} {{format_plural "comment" comments.length}}</span>
+      </div>
+      <div class = "content">
+          <p>{{post_text}}</p>
+      </div>
+    </article>

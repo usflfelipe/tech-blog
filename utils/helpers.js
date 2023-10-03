@@ -1,16 +1,14 @@
-const formatDate = date => {
-    const theDate = new Date(date);
-    return `${theDate.getMonth() + 1}/${theDate.getDate()}/${theDate.getFullYear()}`;
-}
-
-const formatPlural = (str, qty) => {
-    if (qty === 1) {
-        return str;
-    } else {
-        // really should check if the pluralization needs 's' or 'es' added, but for
-        // this exercise, we know we'll only need 's'
-        return `${str}s`;
+module.exports = {
+    format_date: date => {
+      return `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(
+        date
+      ).getFullYear()}`;
+    },
+    format_plural: (word, amount) => {
+      if (amount !== 1) {
+        return `${word}s`;
+      }
+  
+      return word;
     }
-}
-
-module.exports = { formatDate, formatPlural }
+  }
