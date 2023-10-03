@@ -1,33 +1,19 @@
-<div class="card mt-3 mx-3">
-    <h3 class="card-header bg-info text-center border-bottom-0">Post with Comments</h3>
-</div>
-
-{{> post-info post }}
+{{> post-info post}}
 
 {{#if loggedIn}}
-<div class="card mx-3 my-3">
-    <div class="card-header bg-info mb-0">
-        Comment
-    </div>
-    <form class="new-comment-form card-body" id="new-comment-form">
-        <div class="form-group">
-            <textarea rows="2" class="form-control" id="comment-text" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-secondary btn-block mt-2">Submit</button>
-    </form>
-</div>
+<form class="comment-form">
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">Add comment</button>
+  </div>
+</form>
 {{/if}}
 
-
-{{!--  show all the existing comments for this post --}}
-<div class="row m-3">
-    {{#each post.comments as |comment|}}
-        <div class="col-4">
-            {{>comment-info}}
-        </div>
-    {{/each}}
-</div>
+{{> comments post.comments}}
 
 {{#if loggedIn}}
-<script src="/javascript/create-comment.js"></script>
-{{/if}}`
+<script src="/javascript/comment.js"></script>
+{{/if}}

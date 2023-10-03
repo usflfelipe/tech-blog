@@ -1,34 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-const Comment = require('./Comment.js');
-const User = require('./User.js');
 
-class Post extends Model {
-
-    static postAttributes = [
-        'id',
-        'post_text',
-        'title', 
-        'created_at'
-    ];
-
-    static postInclude = [
-        { 
-            model: Comment,
-            attributes: Comment.commentAttributes,
-            include: {
-                model: User,
-                attributes: ['username']
-            },
-            order: [['created_at', 'DESC']]
-        },
-        {
-            model: User,
-            attributes: ['username', 'id']
-        }
-    ];
-}
-
+class Post extends Model {}
 Post.init(
     {
         id: {
@@ -42,11 +15,14 @@ Post.init(
             allowNull: false
         },
         post_text: {
-            type:DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
+            validate: {
+                len: [1]
+            }
         },
         user_id: {
-            type:DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             references: {
                 model: 'user',
                 key: 'id'
@@ -59,6 +35,6 @@ Post.init(
         underscored: true,
         modelName: 'post'
     }
-);
+)
 
 module.exports = Post;

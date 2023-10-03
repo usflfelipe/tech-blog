@@ -1,33 +1,36 @@
 {
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "connect-session-sequelize": "^7.1.2",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-handlebars": "^5.3.3",
-    "express-session": "^1.17.2",
-    "mysql2": "^2.3.0",
-    "seed": "^0.4.4",
-    "sequelize": "^6.6.5"
-  },
+  "name": "mvc-tech-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
     "seed": "node seeds/index.js"
   },
-  "name": "14-challenge-cms-blog",
-  "description": "This challenge for Module 14 of the Coding Bootcamp is to create a CMS-style blog.",
-  "version": "1.0.0",
-  "main": "server.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bjackels5/cms-blog.git"
+    "url": "git+https://github.com/jcgom3/Challenge-14-Tech_blog.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bjackels5/cms-blog/issues"
+    "url": "https://github.com/jcgom3/Challenge-14-Tech_blog/issues"
   },
-  "homepage": "https://github.com/bjackels5/cms-blog#readme"
+  "homepage": "https://github.com/jcgom3/Challenge-14-Tech_blog#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "connect-session-sequelize": "^7.0.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }

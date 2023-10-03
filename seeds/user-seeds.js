@@ -1,59 +1,34 @@
-const sequelize = require('../config/connection');
-const { User, Post } = require('../models');
+const { User } = require('../models');
 
-const userdata = [
+const userData = [
   {
-    username: 'Bootcamp',
-    email: 'bootcamp@ucf.com',
-    password: '1234pwd'
+    username: "Juan",
+    email: "jcgom3@icloud.com",
+    password: "password1234"
   },
   {
-    username: 'Brenda',
-    email: 'a@b.com',
-    password: '1234pwd'
+    username: "Josh",
+    email: "josh@gmail.com",
+    password: "password1234"
   },
   {
-    username: 'Fred',
-    email: 'b@b.com',
-    password: '1234pwd'
+    username: "Steven",
+    email: "steven@gmail.com",
+    password: "password1234"
   },
   {
-    username: 'George',
-    email: 'c@b.com',
-    password: '1234pwd'
+    username: "Emily",
+    email: "emily@gmail.com",
+    password: "password1234"
   },
   {
-    username: 'Ron',
-    email: 'd@b.com',
-    password: '1234pwd'
-  },
-  {
-    username: 'Ginny',
-    email: 'e@b.com',
-    password: '1234pwd'
-  },
-  {
-    username: 'Harry',
-    email: 'f@b.com',
-    password: '1234pwd'
-  },
-  {
-    username: 'Arthur',
-    email: 'g@b.com',
-    password: '1234pwd'
-  },
-  {
-    username: 'Molly',
-    email: 'h@b.com',
-    password: '1234pwd'
-  },
-  {
-    username: 'Percy',
-    email: 'i@b.com',
-    password: '1234pwd'
+    username: "John",
+    email: "john@gmail.com",
+    password: "password1234"
   }
 ];
 
-const seedUsers = () => User.bulkCreate(userdata, {individualHooks: true});
+const seedUsers = () => User.bulkCreate(userData);
+
 
 module.exports = seedUsers;
