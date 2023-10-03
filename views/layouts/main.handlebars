@@ -5,34 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Tech Blog</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/sketchy/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
-<body>
-    <div class="wrapper">
-        <header>
-            <h1>
-                <a href="/">home</a>
-            </h1>
-            <nav>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-info m-1">
+        <a class="navbar-brand abs">
+            <h3>The Tech Blog</h3>
+        </a>
+        <div class="navbar-collapse">
+            <ul class="nav">
+                <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
                 {{#if loggedIn}}
-                <a href="/dashboard">dashboard</a>
-                <button id="logout" class="btn-no-style logout">logout</button>
+                <li class="nav-item"><a href="/dashboard" class="nav-link">Dashboard</a></li>
+                <button type="button" class="btn bg-info font-weight-bold" id="logout">Logout</button>
                 {{else}}
-                <a href="/login">login</a>
+                <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
                 {{/if}}
-            </nav>
-        </header>
-        <div class="site-row">
-            <div class="site-name">
-                <h1>The Tech Blog</h1>
-            </div>
+            </ul>
         </div>
-        <main>
-            {{{ body }}}
-        </main>
-    </div>
+        {{#if username}}
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item navbar-brand badge bg-secondary px-2 pb-0">
+                <h4>{{username}}</h4>
+            </li>
+        </ul>
+        {{/if}}
+    </nav>
+</header>
 
+<body>
+    <main>
+        {{{ body }}}
+    </main>
+    </div>
     {{#if loggedIn}}
     <script src="/javascript/logout.js"></script>
     {{/if}}

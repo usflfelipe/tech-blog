@@ -1,96 +1,26 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const {
-    User,
-    Post,
-    Comment
-} = require('../models');
-
+const { Post, User, Comment } = require('../models');
 
 router.get('/', (req, res) => {
     Post.findAll({
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at'
-            ],
-            include: [{
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-                    include: {
-                        model: User,
-                        attributes: ['username']
-                    }
-                },
-                {
-                    model: User,
-                    attributes: ['username']
-                }
-            ]
-        })
-        .then(dbPostData => {
-            const posts = dbPostData.map(post => post.get({
-                plain: true
-            }));
-
-            res.render('homepage', {
-                posts,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        attributes: Post.postAttributes,
+        include: Post.postInclude,
+        order: [['created_at', 'DESC']],
+    })
+    .then(dbData => {
+        // pass a single post object into the homepage template
+        const posts = dbData.map(post => post.get({ plain: true}));
+        posts.forEach(post => {
+            let pUserId = post.user.id;
+            post.allow_edit = req.session.loggedIn && (req.session.user_id === pUserId);
         });
-});
-
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
-            where: {
-                id: req.params.id
-            },
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at'
-            ],
-            include: [{
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-                    include: {
-                        model: User,
-                        attributes: ['username']
-                    }
-                },
-                {
-                    model: User,
-                    attributes: ['username']
-                }
-            ]
-        })
-        .then(dbPostData => {
-            if (!dbPostData) {
-                res.status(404).json({
-                    message: 'No post found with this id'
-                });
-                return;
-            }
-
-            const post = dbPostData.get({
-                plain: true
-            });
-
-            res.render('single-post', {
-                post,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+        res.render('homepage', { posts, loggedIn: req.session.loggedIn, username: req.session.username });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
 });
 
 router.get('/login', (req, res) => {
@@ -98,7 +28,6 @@ router.get('/login', (req, res) => {
         res.redirect('/');
         return;
     }
-
     res.render('login');
 });
 
@@ -107,15 +36,40 @@ router.get('/signup', (req, res) => {
         res.redirect('/');
         return;
     }
-
     res.render('signup');
 });
 
+router.get('/post/:id', (req, res) => {
+    Post.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: Post.postAttributes,
+        include: Post.postInclude,
+        order: [[{model: Comment}, 'created_at', 'DESC']],
+    })
+    .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No post found with this id' });
+            return;
+        }
 
-router.get('*', (req, res) => {
-    res.status(404).send("Can't go there!");
-    // res.redirect('/');
-})
+        // serialize the data
+        const post = dbPostData.get({ plain: true });
+        post.comments.forEach(comment => {
+            let cUserId = comment.user_id;
+            comment.allow_edit = req.session.loggedIn && (req.session.user_id === cUserId);
+        });
 
+
+        // pass the data to the template
+        res.render('single-post', { post, loggedIn: req.session.loggedIn, username: req.session.username });
+
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 
 module.exports = router;

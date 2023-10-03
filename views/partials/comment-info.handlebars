@@ -1,0 +1,8 @@
+<div class="card mt-3 mx-3">
+    {{#if allow_edit}}
+    {{> comment-line1 bgcolor="bg-secondary" textcolor="text-white"}}
+    {{else}}
+    {{> comment-line1 bgcolor="bg-info" textcolor=""}}
+    {{/if}}
+    <p class="card-text px-5 py-1">{{comment_text}}</p>
+</div>
