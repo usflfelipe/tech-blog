@@ -9,4 +9,4 @@ This application allows various different users to create an account and post bl
 
 ## Application Link
 
-[https://tech-blog-owais.herokuapp.com/](https://tech-blog-m14-a9362ff534cc.herokuapp.com/)https://tech-blog-m14-a9362ff534cc.herokuapp.com/
+https://tech-blog-m14-a9362ff534cc.herokuapp.com/
